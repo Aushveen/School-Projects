@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class HomeworkOne {
 
-    private static BigInteger[] series = new BigInteger[10000000];
+    private static BigInteger[] series = new BigInteger[1037483640];
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
