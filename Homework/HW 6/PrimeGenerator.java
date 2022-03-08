@@ -8,19 +8,12 @@ public class PrimeGenerator {
         this.a = a;
     }
 
-    public void isPrime(){
-        while (b <= a) {
-            if (b >= 2 && b % 2 != 0)
-                list.add(b);
-            else if (b == 2)
-                System.out.print("2 ");
-            else if (a < 2)
-                System.out.println("No prime numbers below");
-            nextPrime();
+    public boolean isPrime(int n){
+        for (int i = 2; i <= Math.sqrt(n); i++){
+            if (n % i == 0)
+                return false;
         }
-        if (b == a || b > a)
-            for (int i = 0; i < list.size(); i++)
-                System.out.print(list.get(i) + " ");
+        return true;
     }
     public void nextPrime(){
         if (b % 2 == 0 || b % 3 == 0)

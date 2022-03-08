@@ -6,7 +6,10 @@ public class PrimePrinter {
         System.out.println("Enter number you want to find prime numbers below: ");
         int n = a.nextInt();
         PrimeGenerator b = new PrimeGenerator(n);
-        b.isPrime();
+        for (int i = 2; i <= n; i++){
+            if (b.isPrime(i))
+                System.out.println(i);
 
+        }
     }
 }
