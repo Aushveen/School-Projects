@@ -1,40 +1,33 @@
+import java.util.*;
+
 public class Sequence {
     private int[] values;
     public Sequence(int size) { values = new int[size]; }
     public void set(int i, int n) { values[i] = n; }
     public int get(int i) { return values[i]; }
     public int size() { return values.length; }
+    public String toString() {
+        return java.util.Arrays.toString( values );
+    }
     public static void main(String[] args){
-        Sequence one = new Sequence(10);
-        Sequence two = new Sequence(10);
-        one.set(0,84);
-        one.set(1,10);
-        one.set(2, 69);
-        one.set(3, 12);
-        one.set(4, 22);
-        one.set(5, 10);
-        one.set(6, 4000000);
-        one.set(7, 12);
-        one.set(8, 22);
-        one.set(9, 88);
-        two.set(0,84);
-        two.set(1,10);
-        two.set(2, 69);
-        two.set(3, 12);
-        two.set(4, 22);
-        two.set(5, 10);
-        two.set(6, 4000000);
-        two.set(7, 12);
-        two.set(8, 22);
-        two.set(9, 88);
+        Sequence one = new Sequence(3);
+        Sequence two = new Sequence(4);
+        one.set(0, -1);
+        one.set(1, 6);
+        one.set(2, 3);
+        two.set(0, 2);
+        two.set(1, 5);
+        two.set(2, 1);
+        two.set(3, 7);
+        System.out.println("One plus two is: " + one.sum(two));
         System.out.println("One is equal to two: " + one.equals(two));
         System.out.println("One has the same values has two: " + one.SameValues(two));
-        System.out.println("One plus two is: ");
-
     }
 
     public boolean equals(Sequence other){
         boolean result = true;
+        if (other.size() != this.size())
+            return false;
         for(int i = 0; i < other.size(); i++){
             if(other.get(i) != this.get(i))
                 result = false;
@@ -46,6 +39,8 @@ public class Sequence {
     public boolean SameValues(Sequence other){
         boolean result = true;
         int compare;
+        if (this.size() != other.size())
+            return false;
         for (int i = 0; i < other.size(); i++){
             compare = this.get(i);
             for (int j = 0; j < other.size(); j++){
@@ -63,20 +58,15 @@ public class Sequence {
     }
 
     //e7.14
-    public Sequence sum(Sequence other){
-        Sequence add = new Sequence(0);
-        if (this.size() >= other.size()) {
-            add = new Sequence(this.size());
-        } else {
-            add = new Sequence(other.size());
+    public Sequence sum(Sequence other) {
+        Sequence result = new Sequence( Math.max( this.size(), other.size() ) );
+        for (int i = 0; i < result.size(); i++) {
+            int a, b;
+            if (i < this.size()) a = values[i]; else a = 0;
+            if (i < other.size()) b = other.get(i); else b = 0;
+            result.set(i, a + b);
         }
-        int sum = 0;
-        for (int i = 0; i< add.size(); i++){
-            if (this.size() > other.size())
-            sum = this.get(i) + other.get(i);
-            add.set(i, sum);
-            sum = 0;
-        }
-        return add;
+        return result;
     }
 }
+
