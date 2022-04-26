@@ -283,48 +283,7 @@ public class RedBlackTree
         }
     }
 
-    /**
-     Move a charge from two children of a parent
-     @param parent a node with two children, or null (in which case nothing is done)
-     */
-    private void bubbleUp(Node parent)
-    {
-        if (parent == null) { return; }
-        parent.color++;
-        parent.left.color--;
-        parent.right.color--;
 
-        if (bubbleUpFix(parent.left)) { return; }
-        if (bubbleUpFix(parent.right)) { return; }
-
-        if (parent.color == DOUBLE_BLACK)
-        {
-            if (parent.parent == null) { parent.color = BLACK; }
-            else { bubbleUp(parent.parent); }
-        }
-    }
-
-    /**
-     Fixes a negative-red or double-red violation introduced by bubbling up.
-     @param child the child to check for negative-red or double-red violations
-     @return true if the tree was fixed
-     */
-    private boolean bubbleUpFix(Node child)
-    {
-        if (child.color == NEGATIVE_RED) { fixNegativeRed(child); return true; }
-        else if (child.color == RED)
-        {
-            if (child.left != null && child.left.color == RED)
-            {
-                fixDoubleRed(child.left); return true;
-            }
-            if (child.right != null && child.right.color == RED)
-            {
-                fixDoubleRed(child.right); return true;
-            }
-        }
-        return false;
-    }
 
     /**
      Fixes a "double red" violation.
@@ -386,70 +345,6 @@ public class RedBlackTree
         }
     }
 
-    /**
-     Fixes a "negative red" violation.
-     @param negRed the negative red node
-     */
-    private void fixNegativeRed(Node negRed)
-    {
-        Node parent = negRed.parent;
-        Node child;
-        if (parent.left == negRed)
-        {
-            Node n1 = negRed.left;
-            Node n2 = negRed;
-            Node n3 = negRed.right;
-            Node n4 = parent;
-            Node t1 = n3.left;
-            Node t2 = n3.right;
-            Node t3 = n4.right;
-            n1.color = RED;
-            n2.color = BLACK;
-            n4.color = BLACK;
-
-            replaceWith(n4, n3);
-            n3.setLeftChild(n2);
-            n3.setRightChild(n4);
-            n2.setLeftChild(n1);
-            n2.setRightChild(t1);
-            n4.setLeftChild(t2);
-            n4.setRightChild(t3);
-
-            child = n1;
-        }
-        else // Mirror image
-        {
-            Node n4 = negRed.right;
-            Node n3 = negRed;
-            Node n2 = negRed.left;
-            Node n1 = parent;
-            Node t3 = n2.right;
-            Node t2 = n2.left;
-            Node t1 = n1.left;
-            n4.color = RED;
-            n3.color = BLACK;
-            n1.color = BLACK;
-
-            replaceWith(n1, n2);
-            n2.setRightChild(n3);
-            n2.setLeftChild(n1);
-            n3.setRightChild(n4);
-            n3.setLeftChild(t3);
-            n1.setRightChild(t2);
-            n1.setLeftChild(t1);
-
-            child = n4;
-        }
-
-        if (child.left != null && child.left.color == RED)
-        {
-            fixDoubleRed(child.left);
-        }
-        else if (child.right != null && child.right.color == RED)
-        {
-            fixDoubleRed(child.right);
-        }
-    }
 
     public static void main(String[] args)
     {
