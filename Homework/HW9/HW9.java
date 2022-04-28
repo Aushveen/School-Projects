@@ -46,8 +46,8 @@ public class HW9 {
         return reverseHelper(s, loc + 1, target - 1);
     }
 
-    /**Q3 -- the method removes all even numbers, so in the instance we have a list with
-     * numbers 1,2,3,4, this would output 1,3
+    /**Q3 -- the method does not work because it i is assigned values, not indexes
+     * so the method outputs an error
      */
     static void f(List<Integer> list) {
         for (Integer i : list)
